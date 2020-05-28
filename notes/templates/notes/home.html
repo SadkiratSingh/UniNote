@@ -13,21 +13,28 @@
     <div class='form-container'>
         <form class='getnotesform'>
 
-                <div class='form-element'>
-                    <select name='course' class='choosecourse'></select>
+                <div class='course-form-element'>
+                    <label for='course' class='choose-course-label'>Choose Course:</label>
+                    <div class='course-form-field'>
+                        <select name='course' id='course' class='choosecourse choose-course-select'></select>
+                    </div>
                 </div>
 
-                <div class='form-element'>
-                    <select name='term' class='chooseterm'>
-                        <option value='minor1'>Minor I</option>
-                        <option value='minor2'>Minor II</option>
-                        <option value='major'>Major</option>
-                    </select>
+                <div class='course-form-element'>
+                    <label for='term' class='choose-course-label'>Choose Term:</label>
+                    <div class='course-form-field'>
+                        <select name='term' id='term' class='choose-course-select'>
+                            <option value='minor1'>Minor I</option>
+                            <option value='minor2'>Minor II</option>
+                            <option value='major'>Major</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class='form-element'>
-                    <input type='submit' text='submit'>
+                <div class='course-form-element'>
+                    <input type='submit' text='submit' class='course-submit'>
                 </div>
+
         </form>
     </div>
 </div>

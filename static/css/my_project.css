@@ -6,6 +6,7 @@
     --white-color:#FEFFFF;
     --green-text-color:#3AAFA9;
     --dark-color:#17252A;
+    --dark-green-color:#2B7A78;
     --bs:0.25rem 0.25rem 0.75rem #DEF2F1,0.125rem 0.125rem 0.25rem rgba(0,0,0,0.15);
 }
 
@@ -48,7 +49,7 @@
     right:0;
     top:0;
     left:0;
-    opacity:0.8;
+    opacity:0.9;
     background-color:var(--dark-color);
 }
 
@@ -56,7 +57,42 @@
     position:absolute;
     background-color:var(--white-color);
     top:5rem;
-    left:5rem;
+    left:1rem;
+    right:1rem;
+    bottom:5rem;
+    border-radius:0.5rem;
+    padding:0.5rem;
+}
+.course-form-element{
+    text-align:center;
+    margin-top:1rem;
+}
+
+.choose-course-label{
+    color:black;
+    font-weight:bold;
+    font-size:1rem;
+}
+
+.course-form-field{
+    margin:0.5rem 0;
+    padding:0 0.4rem;
+}
+
+.choose-course-select{
+    width:100%;
+    padding:0.3rem;
+    border-radius:0.2rem;
+}
+
+.course-submit{
+    border:none;
+    background-color:var(--dark-green-color);
+    color:white;
+    box-shadow:var(--bs);
+    padding:0.3rem 1rem;
+    text-transform:uppercase;
+    cursor: pointer;
 }
 
 @media screen and (min-width:800px){
@@ -64,6 +100,25 @@
         display:grid;
         grid-template-columns:1fr 1fr;
         border:1px solid black;
+    }
+
+    .getnotesform{
+        top:8rem;
+        left:5rem;
+        right:5rem;
+        bottom:15rem;
+    }
+
+    .choose-course-label{
+        color:black;
+        font-weight:bold;
+        font-size:1.3rem;
+        text-align:left;
+    }
+
+    .choose-course-select{
+        padding:0.5rem;
+        font-size:1.2rem;
     }
 
 }
