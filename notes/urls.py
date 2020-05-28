@@ -5,4 +5,5 @@ from . import views
 
 urlpatterns=[
     path('',views.HomePageView.as_view(),name='notes-home'),
+    path('getsemcourses/<semester>/',views.ReturnSemesterCourses.as_view(),name='notes-sem-courses'),
 ]

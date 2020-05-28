@@ -6,12 +6,29 @@
         {% for sem in semesters %}
         <div class='semester-grid-item'>
             Semester-{{sem}}
-            <button class='sem-subject-details'><i class="fas fa-bars" style="color:#2B7A78"></i></button>
+            <button class='sem-subject-details {{sem}}'><i class="fas fa-bars" style="color:#2B7A78"></i></button>
         </div>
         {% endfor %}
     </div>
     <div class='form-container'>
-        
+        <form class='getnotesform'>
+
+                <div class='form-element'>
+                    <select name='course' class='choosecourse'></select>
+                </div>
+
+                <div class='form-element'>
+                    <select name='term' class='chooseterm'>
+                        <option value='minor1'>Minor I</option>
+                        <option value='minor2'>Minor II</option>
+                        <option value='major'>Major</option>
+                    </select>
+                </div>
+
+                <div class='form-element'>
+                    <input type='submit' text='submit'>
+                </div>
+        </form>
     </div>
 </div>
 {% endblock content %}
