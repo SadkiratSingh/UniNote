@@ -3,8 +3,8 @@ from datetime import date
 
 
 # Create your models here.
-class Course(models.Model):
 
+class Semester(models.Model):
     SEMESTER=( ('first','First'),
            ('second','Second'),
            ('third','Third'),
@@ -15,12 +15,19 @@ class Course(models.Model):
            ('eigth','Eigth'),
            
         )
-    cource_code=models.CharField(max_length=10,primary_key=True)
-    course=models.CharField(max_length=30,default='course')
-    semester=models.CharField(max_length=10,choices=SEMESTER,default='sem')
+    semester=models.CharField(max_length=10,choices=SEMESTER,primary_key=True)
 
     def __str__(self):
-        return '{},{} sem'.format(self.source_code,self.semester)
+        return self.semester
+
+        
+class Course(models.Model):
+    cource_code=models.CharField(max_length=10,primary_key=True)
+    course=models.CharField(max_length=30,default='course')
+    semester=models.ForeignKey(Semester,on_delete=models.CASCADE,default='first')
+
+    def __str__(self):
+        return '{},{} sem'.format(self.cource_code,self.semester.semester)
 
 class PdfFiles(models.Model):
 
@@ -40,5 +47,5 @@ class PdfFiles(models.Model):
         verbose_name='Pdf File'
 
     def __str__(self):
-        return '{},{} sem,{}'.format(self.cource_code.cource_code,self.cource_code.semester,self.term)
+        return '{},{} sem,{}'.format(self.cource_code.cource_code,self.cource_code.semester.semester,self.term)
 

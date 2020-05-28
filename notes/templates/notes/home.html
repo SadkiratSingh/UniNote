@@ -1,0 +1,17 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class='semester-wrapper'>
+    <div class='semester-grid'>
+        {% for sem in semesters %}
+        <div class='semester-grid-item'>
+            Semester-{{sem}}
+            <button class='sem-subject-details'><i class="fas fa-bars" style="color:#2B7A78"></i></button>
+        </div>
+        {% endfor %}
+    </div>
+    <div class='form-container'>
+        
+    </div>
+</div>
+{% endblock content %}
