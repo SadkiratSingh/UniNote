@@ -10,20 +10,86 @@
     --bs:0.25rem 0.25rem 0.75rem #DEF2F1,0.125rem 0.125rem 0.25rem rgba(0,0,0,0.15);
 }
 
+/*--------------------------------------------------FOR NAVBAR---------------------------------------------*/
+.nav-sm{
+    background-color:var(--dark-green-color);
+    text-align:right;
+    padding:0.5rem 0;
+    position:relative;
+    z-index:400;
+}
+
+.nav-icon{
+    margin-right:2.5rem;
+    border:none;
+    background:transparent;
+}
+
+.nav-list{
+    margin:0;
+    padding:0;
+    list-style-type:none;
+    text-align:center;
+    background-color:var(--dark-green-color);
+    position:absolute;
+    width:100%;
+    z-index:200;
+    transform:translateY(-100%);
+    transition:transform 350ms ease;
+}
+
+.nav-list.nav-open{
+    transform:translateY(0%);
+}
+
+.nav-link{
+    display:block;
+    padding:0.7rem 2rem;
+    color:white;
+    text-decoration:none;
+    text-transform:uppercase;
+    font-size:1.3rem;
+}
+
+.nav-link:focus{
+    background-color:var(--green-text-color);
+}
+
+@media screen and (min-width:800px){
+    .nav-list{
+        display:flex;
+        justify-content:flex-start;
+        background-color:var(--dark-green-color);
+        color:white;
+        list-style-type:none;
+        padding:0;
+        margin:0;
+        position:static;
+        transform:translateY(0%);
+        transition:none;
+    }
+    .nav-link:hover{
+        background-color:var(--green-text-color);
+    }
+    .nav-sm{
+        display:none;
+    }
+
+}
+/*--------------------------------------------------FOR NAVBAR---------------------------------------------*/
 
 /*---------------------------------------------------FOR NOTES APP-----------------------------------------*/
 .semester-grid{
     display:grid;
     grid-template-columns:repeat(autofit,minmax(100px,1fr));
-    border:1px solid black;
     grid-row-gap:1rem;
     grid-column-gap:0.5rem;
+    margin-top:1.5rem;
 }
 
 .semester-grid-item{
     background-color:var(--white-color);
     color:var(--green-text-color);
-    border:1px solid black;
     margin:0.5rem 1rem;
     padding:2rem 0.5rem;
     font-size:1.5rem;
@@ -51,6 +117,18 @@
     left:0;
     opacity:0.9;
     background-color:var(--dark-color);
+    z-index:600;
+}
+
+.close-form{
+    position: absolute;
+    top:1rem;
+    right:1rem;
+    color:white;
+    background:transparent;
+    border:none;
+    font-size:1.5rem;
+    cursor: pointer;
 }
 
 .getnotesform{
@@ -99,7 +177,6 @@
     .semester-grid{
         display:grid;
         grid-template-columns:1fr 1fr;
-        border:1px solid black;
     }
 
     .getnotesform{
@@ -119,6 +196,12 @@
     .choose-course-select{
         padding:0.5rem;
         font-size:1.2rem;
+    }
+
+    .close-form{
+        top:1rem;
+        right:2.5rem;
+        font-size:3rem;
     }
 
 }
