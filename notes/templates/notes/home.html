@@ -1,17 +1,19 @@
 {% extends 'global/base.html' %}
-
+{% load static %}
 {% block content %}
 <div class='semester-wrapper'>
     <div class='semester-grid'>
         {% for sem in semesters %}
         <div class='semester-grid-item'>
             Semester-{{sem}}
-            <button class='sem-subject-details {{sem}}'><i class="fas fa-bars" style="color:#2B7A78"></i></button>
+            <button class='sem-subject-details {{sem}}' style='cursor:pointer;'><i class="fas fa-bars" style="color:#2B7A78"></i></button>
         </div>
         {% endfor %}
     </div>
     <div class='form-container'>
         <button class='close-form'><i class="fas fa-times"></i></button>
+
+        <!--COURSE FORM SETTINGS-->
         <form class='getnotesform'>
 
                 <div class='course-form-element'>
@@ -31,12 +33,18 @@
                         </select>
                     </div>
                 </div>
+            </form>
+            <div class='course-form-element'>
+                <button class='course-submit'>Submit</button>
+            </div>
+        <!--COURSE FORM SETTINGS-->
 
-                <div class='course-form-element'>
-                    <input type='submit' text='submit' class='course-submit'>
-                </div>
-
-        </form>
+        <!--GRID PDFS DISPLAY-->
+        <div class='pdf-grid-wrapper'>
+            <div class='pdf-grid'>
+            </div>
+        </div>
+        <!--GRID PDFS DISPLAY-->
     </div>
 </div>
 {% endblock content %}

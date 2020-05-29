@@ -7,6 +7,7 @@
     --green-text-color:#3AAFA9;
     --dark-color:#17252A;
     --dark-green-color:#2B7A78;
+    --raleway-font:'Raleway', sans-serif;
     --bs:0.25rem 0.25rem 0.75rem #DEF2F1,0.125rem 0.125rem 0.25rem rgba(0,0,0,0.15);
 }
 
@@ -20,7 +21,7 @@
 }
 
 .nav-icon{
-    margin-right:2.5rem;
+    margin-right:1.5rem;
     border:none;
     background:transparent;
 }
@@ -79,9 +80,12 @@
 /*--------------------------------------------------FOR NAVBAR---------------------------------------------*/
 
 /*---------------------------------------------------FOR NOTES APP-----------------------------------------*/
+
+/*home-page*/
+
 .semester-grid{
     display:grid;
-    grid-template-columns:repeat(autofit,minmax(100px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
     grid-row-gap:1rem;
     grid-column-gap:0.5rem;
     margin-top:1.5rem;
@@ -92,20 +96,21 @@
     color:var(--green-text-color);
     margin:0.5rem 1rem;
     padding:2rem 0.5rem;
-    font-size:1.5rem;
+    font-size:1rem;
     box-shadow:var(--bs);
     border-radius:1rem;
     border:0.5px solid #DEF2F1;
     position: relative;
+    text-align:center;
 }
 
 .sem-subject-details{
     background:transparent;
     border:none;
     position: absolute;
-    top:1rem;
-    right:1.5rem;
-    font-size:1rem;
+    top:0.5rem;
+    right:0.5rem;
+    font-size:0.8rem;
 }
 
 .form-container{
@@ -117,6 +122,7 @@
     left:0;
     opacity:0.9;
     background-color:var(--dark-color);
+    overflow-y:auto;
     z-index:600;
 }
 
@@ -131,13 +137,15 @@
     cursor: pointer;
 }
 
+/*course-form*/
+
 .getnotesform{
     position:absolute;
     background-color:var(--white-color);
     top:5rem;
     left:1rem;
     right:1rem;
-    bottom:5rem;
+    bottom:8rem;
     border-radius:0.5rem;
     padding:0.5rem;
 }
@@ -170,6 +178,45 @@
     box-shadow:var(--bs);
     padding:0.3rem 1rem;
     text-transform:uppercase;
+    cursor:pointer;
+    position:absolute;
+    top:15.5rem;
+    left:7rem;
+}
+
+/*pdfs display*/
+
+.pdf-grid-wrapper{
+    display:none;
+}
+.pdf-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+    grid-column-gap:0.4rem;
+    grid-row-gap:0.5rem;
+    padding:1rem;
+}
+
+.pdf-grid-item{
+    border:1px solid white;
+    margin-top:2rem;
+    text-align:center;
+    color:black;
+    font-weight:bold;
+    font-family:var(--raleway-font);
+    background-color:var(--white-color);
+    font-size:0.8rem;
+}
+
+.pdf-img-link{
+    display:block;
+    margin-top:0.7rem;
+}
+
+.pdf-download{
+    border:none;
+    background-color:var(--dark-green-color);
+    color:white;
     cursor: pointer;
 }
 
@@ -177,6 +224,17 @@
     .semester-grid{
         display:grid;
         grid-template-columns:1fr 1fr;
+    }
+
+    .sem-subject-details{
+        top:1.5rem;
+        right:1.5rem;
+        font-size:1rem;
+    }
+
+    .semester-grid-item{
+        font-size:1.5rem;
+        text-align:left;
     }
 
     .getnotesform{
@@ -203,6 +261,15 @@
         right:2.5rem;
         font-size:3rem;
     }
-
+    .course-submit{
+        top:21rem;
+        left:44.5rem
+    }
+    .pdf-grid{
+        grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    }
+    .pdf-grid-item{
+        margin-top:3rem;
+    }
 }
 /*---------------------------------------------------FOR NOTES APP-----------------------------------------*/
