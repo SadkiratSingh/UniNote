@@ -3,6 +3,8 @@ from django.views.generic.base import View
 from .models import Semester,Course,PdfFiles
 from django.http import HttpResponse,JsonResponse
 import re
+import io,zipfile,os
+from django.conf import settings
 
 # Create your views here.
 
@@ -37,17 +39,20 @@ class ReturnFiles(View):
             files_data['img_url']=obj.image.url
             #get url for pdfimage#
 
-            #get pdf name#
+            #get pdf name shortened#
             pdf_name=obj.files.name
             pdf_name=re.sub('notes/pdfs/','',pdf_name)
             pdf_name=re.sub(file_ext_pat,'',pdf_name)
-            pdf_name=re.sub('-',' ',pdf_name)
-            files_data['file_name']=pdf_name
-            #get pdf name#
+            pdf_name1=re.sub('-',' ',pdf_name)
+            pdf_name2=re.sub('-','',pdf_name)
+            files_data['file_name']=pdf_name1
+            files_data['file_name_alt']=pdf_name2
+            files_data['org_file_name']=pdf_name
+            #get pdf name shortened#
 
             files_data['term']=term
             data_list.append(files_data)
-            
+
         #sort data list acc to pdf name#
         data_list=sorted(data_list,key=lambda x:x['file_name'])
         
@@ -55,4 +60,17 @@ class ReturnFiles(View):
 
         return response
 
-    
+class DownloadPdf(View):
+    def get(self,request,*args,**kwargs):
+        temp=io.BytesIO()
+        name_of_file=kwargs['name']
+        name_of_file_f=re.sub('-',' ',name_of_file)
+        file_obj=PdfFiles.objects.filter(files__contains=name_of_file)[0]
+        abs_path=file_obj.files.path
+        archive=zipfile.ZipFile(temp,'w')
+        base_name=os.path.basename(abs_path)
+        archive.write(abs_path,base_name)
+        archive.close()
+        response=HttpResponse(temp.getvalue(),content_type='application/zip')
+        response['content-disposition']=f'attachment; filename="{name_of_file_f}.zip"'
+        return response

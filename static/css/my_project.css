@@ -206,11 +206,20 @@
     font-family:var(--raleway-font);
     background-color:var(--white-color);
     font-size:0.8rem;
+    border-radius:0.5rem;
 }
 
-.pdf-img-link{
-    display:block;
+.pdf-image{
     margin-top:0.7rem;
+}
+
+.notes-image{
+    display:none;
+    max-width:100%;
+}
+
+.pdf-path{
+    display:none;
 }
 
 .pdf-download{
