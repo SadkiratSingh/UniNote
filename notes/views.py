@@ -1,12 +1,38 @@
 from django.shortcuts import render
 from django.views.generic.base import View
 from .models import Semester,Course,PdfFiles
-from django.http import HttpResponse,JsonResponse
+from django.http import HttpResponse,JsonResponse,QueryDict
 import re
 import io,zipfile,os
-from django.conf import settings
-
+from django.contrib.auth.mixins import AccessMixin
+from urllib.parse import urlparse,urlunparse
 # Create your views here.
+
+class LoginCheck(AccessMixin):
+    def get_redirect_url(self):
+        ### get all params to generate redirect url ###
+        path='/'+self.request.get_full_path().split('/')[1]+'/'
+        redirect_field=self.get_redirect_field_name()
+        login_url=self.get_login_url()
+        ### get all params to generate redirect url ###
+        
+        ##generate redirect_url##
+        parse_list=list(urlparse(login_url))
+        empty_query=parse_list[4]
+        query_obj=QueryDict(empty_query,mutable=True)
+        query_obj[redirect_field]=path
+        query_string=query_obj.urlencode(safe='/')
+        parse_list[4]=query_string
+        redirect_url=urlunparse(parse_list)
+        return redirect_url
+        ##generate redirect_url##
+
+    def dispatch(self,request,*args,**kwargs):
+        if(not request.user.is_authenticated):
+            url=self.get_redirect_url()
+            return JsonResponse({'login_url':url})
+        else:
+            return super().dispatch(request,*args,**kwargs)
 
 class HomePageView(View):
     def get(self,request,*args,**kwargs):
@@ -15,7 +41,7 @@ class HomePageView(View):
         response=render(request,template_name='notes/home.html',context={'semesters':semesters})
         return response
 
-class ReturnSemesterCourses(View):
+class ReturnSemesterCourses(LoginCheck,View):
     def get(self,request,*args,**kwargs):
         required_sem=self.kwargs['semester']
         req_sem_obj=Semester.objects.get(semester=required_sem)

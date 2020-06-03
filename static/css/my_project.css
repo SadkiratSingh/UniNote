@@ -142,10 +142,10 @@
 .getnotesform{
     position:absolute;
     background-color:var(--white-color);
-    top:5rem;
-    left:1rem;
-    right:1rem;
-    bottom:8rem;
+    top:20%;
+    left:10%;
+    right:10%;
+    bottom:35%;
     border-radius:0.5rem;
     padding:0.5rem;
 }
@@ -180,8 +180,9 @@
     text-transform:uppercase;
     cursor:pointer;
     position:absolute;
-    top:15.5rem;
-    left:7rem;
+    top:52%;
+    left:37%;
+    right:37%;
 }
 
 /*pdfs display*/
@@ -227,6 +228,8 @@
     background-color:var(--dark-green-color);
     color:white;
     cursor: pointer;
+    border-radius:0.3rem;
+    margin-bottom:0.5rem;
 }
 
 @media screen and (min-width:800px){

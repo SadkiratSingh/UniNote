@@ -15,12 +15,10 @@ var pdfGridItems=undefined;
 //global variables//
 
 //button clicks action//
-closeFormButton.onclick=closeForm;
 openNavBar.onclick=navbardisplay;
 getSemDetailsButtons.forEach((button)=>{
     button.onclick=loadSemCourses;
 })
-submitCourseFormData.addEventListener('click',getNotes)
 //button clicks action//
 
 //header//
@@ -36,10 +34,6 @@ function closeForm(){
 }
 
 function loadSemCourses(){
-    formCont.style.display='block';
-    courseForm.style.display='block';
-    submitCourseFormData.style.display='block';
-    pdfGridWrap.style.display='none';
     var sem=this.classList[1];
     var http;
     http=new XMLHttpRequest();
@@ -50,12 +44,24 @@ function loadSemCourses(){
 
 function checkResponse(){
     if(this.readyState==4 && this.status==200){
-        subjectsList=JSON.parse(this.responseText)['courses'];
-        createFormContent();
+        var response=JSON.parse(this.responseText);
+        if(response.hasOwnProperty('login_url')){
+           window.location.href=response['login_url']
+        }
+        else if(response.hasOwnProperty('courses')){
+            subjectsList=response['courses'];
+            createFormContent();
+        }
     }
 }
 
 function createFormContent(){
+    formCont.style.display='block';
+    closeFormButton.onclick=closeForm;
+    courseForm.style.display='block';
+    submitCourseFormData.style.display='block';
+    submitCourseFormData.addEventListener('click',getNotes);
+    pdfGridWrap.style.display='none';
     var formstr='';
     for(var i=0;i<subjectsList.length;i++){
         formstr+='<option value='+subjectsList[i][0]+'>'+subjectsList[i][1]+'</option>'
@@ -118,7 +124,6 @@ function alterClassName(){
 
 function runfordisplay(){
     var pdfIconsList=document.querySelectorAll('.pdf-image');
-    console.log(pdfIconsList);
     pdfIconsList.forEach((icon)=>{
         icon.addEventListener('click',notesImgDisplay)
     })
@@ -146,7 +151,7 @@ function revertpdfdisplay(){
 
 function downloadPdf(target){
     orgName=target.previousElementSibling.innerText;
-    window.location=`downloadpdf/${orgName}`;
+    window.location.href=`downloadpdf/${orgName}`;
 }
 
 
