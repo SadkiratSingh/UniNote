@@ -21,7 +21,7 @@ getSemDetailsButtons.forEach((button)=>{
 })
 //button clicks action//
 
-//header//
+//header///
 function navbardisplay(){
     navList.classList.toggle('nav-open')
 }
@@ -153,6 +153,30 @@ function downloadPdf(target){
     orgName=target.previousElementSibling.innerText;
     window.location.href=`downloadpdf/${orgName}`;
 }
+
+var loginButton=document.querySelector('.login-link');
+var signUpButton=document.querySelector('.signup-link');
+if(loginButton && signUpButton){
+    var url=window.location.href;
+    var url_list=url.split('/');
+    if(url_list[4]=='login'){
+        loginButton.classList.add('active');
+        signUpButton.classList.remove('active');
+    }
+    else if(url_list[4]=='signup'){
+        signUpButton.classList.add('active');
+        loginButton.classList.remove('active');
+    }
+}
+
+helpButtons=document.querySelectorAll('.click-for-help');
+helpButtons.forEach((b)=>{
+    b.addEventListener('click',displayHelp);
+})
+function displayHelp(e){
+    alert(e.target.previousElementSibling.innerText);
+}
+
 
 
 

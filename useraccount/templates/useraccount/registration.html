@@ -1,0 +1,23 @@
+{% extends 'global/base.html' %}
+
+{% block content %}
+<div class='signup-form-wrapper'>
+    <div class='auth-links'>
+        <a class='login-link insignupmode' href='{% url "useraccount-login" %}'>Login</a><a class='signup-link insignupmode' href='{% url "useraccount-signup" %}'>Signup</a>
+    </div>
+    <form action='' method='post' class='signup-form'>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class='signup-form-label'>
+            {{field.label_tag}}
+        </div>
+        <div class='signup-form-field'>
+            {{field}}
+            <div class='help-text'>{{field.help_text}}</div>
+            <span class='click-for-help' title="click here for help">..</span>
+        </div>
+        {% endfor %}
+        <input type='submit' class='signup-form-submit' value='SignUp'>
+    </form>
+</div>
+{% endblock %}

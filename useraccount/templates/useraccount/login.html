@@ -1,5 +1,21 @@
 {% extends 'global/base.html' %}
 
 {% block content %}
-{{form.as_p}}
+<div class='login-form-wrapper'>
+    <div class='auth-links'>
+        <a class='login-link' href='{% url "useraccount-login" %}'>Login</a><a class='signup-link' href='{% url "useraccount-signup" %}'>Signup</a>
+    </div>
+    <form action='' method='post' class='login-form'>
+        {% csrf_token %}
+        {% for field in form %}
+        <div class='login-form-label'>
+            {{field.label_tag}}
+        </div>
+        <div class='login-form-field'>
+            {{field}}
+        </div>
+        {% endfor %}
+        <input type='submit' class='login-form-submit' value='login'>
+    </form>
+</div>
 {% endblock content %}

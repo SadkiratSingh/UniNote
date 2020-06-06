@@ -16,15 +16,15 @@
             <button class='nav-icon'><i class="fas fa-bars" style="color:#FEFFFF"></i></button>
         </div>
         <ul class='nav-list'>
-            <li class='nav-item'><a class='nav-link' href='#'><i class="fas fa-home"></i></a></li>
+            <li class='nav-item'><a class='nav-link' href='#'><i
+                 class="fas fa-home"></i></a></li>
             <li class='nav-item'><a class='nav-link' href='{% url "notes-home" %}'>Notes<a></li>
-            <li class='nav-item'><a class='nav-link' href='#'>About</a></li>
-            <li class='nav-item'><a class='nav-link' href='#'>Discussion</a></li>
             {% if user.is_authenticated %}
             <li class='nav-item'><a class='nav-link' href='#'>Logout</a></li>
+            <li class='nav-item'><a class='nav-link' href='#'>Rate This App</a></li>
             {% else %}
-            <li class='nav-item'><a class='nav-link' href='#'>Login</a></li>
-            <li class='nav-item'><a class='nav-link' href='#'>Signup</a></li>
+            <li class='nav-item'><a class='nav-link' href='{% url "useraccount-login" %}'>Login</a></li>
+            <li class='nav-item'><a class='nav-link' href='{% url "useraccount-signup" %}'>Signup</a></li>
             {% endif %}
         </ul>
     </div>

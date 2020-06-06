@@ -285,3 +285,85 @@
     }
 }
 /*---------------------------------------------------FOR NOTES APP-----------------------------------------*/
+
+/****AUTH MODE STYLE****/
+
+.login-form-wrapper,.signup-form-wrapper{
+    display:flex;
+    position:absolute;
+    height:100%;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+}
+
+.login-form,.signup-form{
+    border:1px solid black;
+    padding:2rem;
+    box-shadow:var(--bs);
+    border:0.5px solid var(--white-color);
+}
+
+.login-form-submit,.signup-form-submit{
+    margin:0 auto;
+    display:block;
+    margin-top:1rem;
+    color:var(--white-color);
+    background-color:var(--dark-green-color);
+    text-transform: uppercase;
+    text-align:center;
+    border:none;
+    box-shadow:var(--bs);
+    padding:0.3rem 1.5rem;
+}
+
+.login-form-field,.signup-form-field{
+    padding-top:0.5rem;
+}
+
+.login-form-label,.signup-form-label{
+    font-weight:bold;
+    margin-top:1rem;
+}
+
+.auth-links{
+    text-align:center;
+}
+.login-link,.signup-link{
+    padding:0.6rem 2.15rem;
+    text-decoration:none;
+    display:inline-block;
+    font-size:1.2rem;
+    color:white;
+    text-transform:uppercase;
+    background-color:var(--dark-green-color);
+    cursor: pointer;
+}
+
+.login-link:hover,.signup-link:hover{
+    background-color:var(--green-text-color);
+}
+
+.active{
+    background-color:var(--green-text-color);
+}
+
+.insignupmode{
+    padding:0.6rem 2.5rem;
+}
+
+.click-for-help{
+    border:none;
+    border-radius:50%;
+    background-color:var(--green-text-color);
+    cursor: pointer;
+    padding:0rem 0.25rem;
+    color:var(--white-color);
+}
+
+.help-text{
+    display:none;
+}
+
+/****AUTH MODE STYLE****/
