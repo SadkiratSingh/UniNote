@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic.base import View
-from .models import Semester,Course,PdfFiles
-from django.http import HttpResponse,JsonResponse,QueryDict
+from .models import Semester,Course,PdfFiles,Chapter
+from django.http import HttpResponse,JsonResponse,QueryDict,HttpResponseRedirect
 import re
 import io,zipfile,os
 from django.contrib.auth.mixins import AccessMixin
@@ -30,7 +30,7 @@ class LoginCheck(AccessMixin):
     def dispatch(self,request,*args,**kwargs):
         if(not request.user.is_authenticated):
             url=self.get_redirect_url()
-            return JsonResponse({'login_url':url})
+            return HttpResponseRedirect(url)
         else:
             return super().dispatch(request,*args,**kwargs)
 
@@ -41,7 +41,7 @@ class HomePageView(View):
         response=render(request,template_name='notes/home.html',context={'semesters':semesters})
         return response
 
-class ReturnSemesterCourses(LoginCheck,View):
+class ReturnSemesterCourses(View):
     def get(self,request,*args,**kwargs):
         required_sem=self.kwargs['semester']
         req_sem_obj=Semester.objects.get(semester=required_sem)
@@ -52,51 +52,37 @@ class ReturnSemesterCourses(LoginCheck,View):
         response=JsonResponse({'courses':courses})
         return response
 
-class ReturnFiles(View):
+class ReturnChapters(View):
     def get(self,request,*args,**kwargs):
         course_id=request.GET.get('course')
         term=request.GET.get('term')
-        all_required_files_data=list(PdfFiles.objects.filter(term=term,cource_code__cource_code=course_id))
-        file_ext_pat='\.pdf$'
+        all_related_chapters=list(Chapter.objects.filter(term=term,rel_course__cource_code=course_id))
         data_list=[]
-        for obj in all_required_files_data:
-            files_data={}
+        for obj in all_related_chapters:
+            chapters_data={}
+            chapters_data['ch_name']=obj.name
             #get url for pdfimage#
-            files_data['img_url']=obj.image.url
+            chapters_data['img_url']=obj.image.url
             #get url for pdfimage#
+            chapters_data['term']=term
+            data_list.append(chapters_data)
 
-            #get pdf name shortened#
-            pdf_name=obj.files.name
-            pdf_name=re.sub('notes/pdfs/','',pdf_name)
-            pdf_name=re.sub(file_ext_pat,'',pdf_name)
-            pdf_name1=re.sub('-',' ',pdf_name)
-            pdf_name2=re.sub('-','',pdf_name)
-            files_data['file_name']=pdf_name1
-            files_data['file_name_alt']=pdf_name2
-            files_data['org_file_name']=pdf_name
-            #get pdf name shortened#
-
-            files_data['term']=term
-            data_list.append(files_data)
-
-        #sort data list acc to pdf name#
-        data_list=sorted(data_list,key=lambda x:x['file_name'])
-        
+        #sort data list acc to chapter name#
+        data_list=sorted(data_list,key=lambda x:x['ch_name'])
         response=JsonResponse({'data':data_list})
-
         return response
 
-class DownloadPdf(View):
+class DownloadZip(LoginCheck,View):
     def get(self,request,*args,**kwargs):
         temp=io.BytesIO()
-        name_of_file=kwargs['name']
-        name_of_file_f=re.sub('-',' ',name_of_file)
-        file_obj=PdfFiles.objects.filter(files__contains=name_of_file)[0]
-        abs_path=file_obj.files.path
+        chapter_name=kwargs['name']
+        file_objects=PdfFiles.objects.filter(rel_chapter__name=chapter_name)
         archive=zipfile.ZipFile(temp,'w')
-        base_name=os.path.basename(abs_path)
-        archive.write(abs_path,base_name)
+        for f in file_objects:
+            abs_path=f.files.path
+            base_name=os.path.basename(abs_path)
+            archive.write(abs_path,base_name)
         archive.close()
         response=HttpResponse(temp.getvalue(),content_type='application/zip')
-        response['content-disposition']=f'attachment; filename="{name_of_file_f}.zip"'
+        response['content-disposition']=f'attachment; filename="{chapter_name}.zip"'
         return response

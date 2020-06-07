@@ -8,8 +8,8 @@ const openNavBar=document.querySelector('.nav-icon');
 const navList=document.querySelector('.nav-list');
 const courseForm=document.querySelector('.getnotesform')
 const submitCourseFormData=document.querySelector('.course-submit');
-const pdfGridWrap=document.querySelector('.pdf-grid-wrapper');
-const pdfGrid=document.querySelector('.pdf-grid')
+const chapterGridWrap=document.querySelector('.chapter-grid-wrapper');
+const chapterGrid=document.querySelector('.chapter-grid')
 var subjectsList=undefined;
 var pdfGridItems=undefined;
 //global variables//
@@ -45,10 +45,7 @@ function loadSemCourses(){
 function checkResponse(){
     if(this.readyState==4 && this.status==200){
         var response=JSON.parse(this.responseText);
-        if(response.hasOwnProperty('login_url')){
-           window.location.href=response['login_url']
-        }
-        else if(response.hasOwnProperty('courses')){
+        if(response.hasOwnProperty('courses')){
             subjectsList=response['courses'];
             createFormContent();
         }
@@ -61,7 +58,7 @@ function createFormContent(){
     courseForm.style.display='block';
     submitCourseFormData.style.display='block';
     submitCourseFormData.addEventListener('click',getNotes);
-    pdfGridWrap.style.display='none';
+    chapterGridWrap.style.display='none';
     var formstr='';
     for(var i=0;i<subjectsList.length;i++){
         formstr+='<option value='+subjectsList[i][0]+'>'+subjectsList[i][1]+'</option>'
@@ -76,67 +73,61 @@ function getNotes(e){
     var term=document.getElementById('term').value;
     courseForm.style.display='none';
     e.target.style.display='none';
-    pdfGridWrap.style.display='block';
+    chapterGridWrap.style.display='block';
     var http;
     http=new XMLHttpRequest();
-    http.onreadystatechange=displayNotes;
+    http.onreadystatechange=displayChapters;
     http.open('GET','getnotes?course='+courseCode+'&term='+term);
     http.send();
 }
 
-function displayNotes(){
+function displayChapters(){
     if(this.readyState==4 && this.status==200){
         var filesData=JSON.parse(this.responseText);
         var dataList=filesData['data'];
         var notesstr='';
         var img_url;
-        var file_name;
-        var alt_file_name;
-        var orgFileName;
         var i=0;
         while(i<dataList.length){
             img_url=dataList[i]['img_url'];
-            file_name=dataList[i]['file_name'];
-            alt_file_name=dataList[i]['file_name_alt'];
-            orgFileName=dataList[i]['org_file_name'];
-            notesstr+="<div class='pdf-grid-item'>";
-            notesstr+=`<img src=${pdfsrc} class='pdf-image' alt='pdf'>`;
-            notesstr+=`<p class='pdf-info'>${file_name}</p>`;
-            notesstr+=`<p class='pdf-path'>${orgFileName}</p>`;
-            notesstr+="<button class='pdf-download' onclick='downloadPdf(this)' >Download</button>";
+            chapter_name=dataList[i]['ch_name'];
+            notesstr+="<div class='chapter-grid-item'>";
+            notesstr+=`<img src=${pdfsrc} class='zip-image' alt='zip'>`;
+            notesstr+=`<p class='chapter-info'>${chapter_name}</p>`;
+            notesstr+=`<button class='zip-download' onclick='downloadZip(this,${chapter_name}.id)' >Download</button>`;
             notesstr+="</div>";
-            notesstr+=`<img src=${img_url} class='notes-image' id=${alt_file_name} alt='pdf'>`;
+            notesstr+=`<img src=${img_url} class='chapter-image' id=${chapter_name} alt='ch-image'>`;
             i=i+1;
         }
-        pdfGrid.innerHTML=notesstr;
+        chapterGrid.innerHTML=notesstr;
         alterClassName()
         runfordisplay()
     }
 }
 
 function alterClassName(){
-    var pdfIcons=document.querySelectorAll('.pdf-image');
-    var notesImgs=document.querySelectorAll('.notes-image');
-    for(var i=0;i<notesImgs.length;i++){
-        pdfIcons[i].classList.add(notesImgs[i].id);
+    var zipIcons=document.querySelectorAll('.zip-image');
+    var chapterImgs=document.querySelectorAll('.chapter-image');
+    for(var i=0;i<chapterImgs.length;i++){
+        zipIcons[i].classList.add(chapterImgs[i].id);
     }
 }
 
 function runfordisplay(){
-    var pdfIconsList=document.querySelectorAll('.pdf-image');
-    pdfIconsList.forEach((icon)=>{
-        icon.addEventListener('click',notesImgDisplay)
+    var zipIconsList=document.querySelectorAll('.zip-image');
+    zipIconsList.forEach((icon)=>{
+        icon.addEventListener('click',chapterImgDisplay)
     })
 }
 
-function notesImgDisplay(e){
+function chapterImgDisplay(e){
     closeFormButton.style.display='none';
-    pdfGridItems=document.querySelectorAll('.pdf-grid-item');
-    pdfGridItems.forEach((item)=>{
+    chapterGridItems=document.querySelectorAll('.chapter-grid-item');
+    chapterGridItems.forEach((item)=>{
         item.style.display='none';
     })
-    var notesImageId=e.target.classList[1];
-    my_img=document.getElementById(notesImageId);
+    var chapterImageId=e.target.classList[1];
+    my_img=document.getElementById(chapterImageId);
     my_img.style.display='block';
     my_img.onclick=revertpdfdisplay;
 }
@@ -144,16 +135,16 @@ function notesImgDisplay(e){
 function revertpdfdisplay(){
     this.style.display='none';
     closeFormButton.style.display='block';
-    pdfGridItems.forEach((item)=>{
+    chapterGridItems.forEach((item)=>{
         item.style.display='block';
     })
 }
 
-function downloadPdf(target){
-    orgName=target.previousElementSibling.innerText;
-    window.location.href=`downloadpdf/${orgName}`;
+function downloadZip(target,chname){
+    window.location.href=`downloadzip/${chname}`;
 }
 
+//auth-modifications//
 var loginButton=document.querySelector('.login-link');
 var signUpButton=document.querySelector('.signup-link');
 if(loginButton && signUpButton){
@@ -176,7 +167,7 @@ helpButtons.forEach((b)=>{
 function displayHelp(e){
     alert(e.target.previousElementSibling.innerText);
 }
-
+//auth-modifications//
 
 
 

@@ -120,7 +120,6 @@
     right:0;
     top:0;
     left:0;
-    opacity:0.9;
     background-color:var(--dark-color);
     overflow-y:auto;
     z-index:600;
@@ -180,17 +179,17 @@
     text-transform:uppercase;
     cursor:pointer;
     position:absolute;
-    top:52%;
-    left:37%;
-    right:37%;
+    top:57%;
+    left:37.5%;
+    right:37.5%;
 }
 
 /*pdfs display*/
 
-.pdf-grid-wrapper{
+.chapter-grid-wrapper{
     display:none;
 }
-.pdf-grid{
+.chapter-grid{
     display:grid;
     grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
     grid-column-gap:0.4rem;
@@ -198,7 +197,7 @@
     padding:1rem;
 }
 
-.pdf-grid-item{
+.chapter-grid-item{
     border:1px solid white;
     margin-top:2rem;
     text-align:center;
@@ -210,20 +209,16 @@
     border-radius:0.5rem;
 }
 
-.pdf-image{
+.zip-image{
     margin-top:0.7rem;
 }
 
-.notes-image{
+.chapter-image{
     display:none;
     max-width:100%;
 }
 
-.pdf-path{
-    display:none;
-}
-
-.pdf-download{
+.zip-download{
     border:none;
     background-color:var(--dark-green-color);
     color:white;
@@ -277,10 +272,10 @@
         top:21rem;
         left:44.5rem
     }
-    .pdf-grid{
+    .chapter-grid{
         grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
     }
-    .pdf-grid-item{
+    .chapter-grid-item{
         margin-top:3rem;
     }
 }
@@ -331,7 +326,7 @@
     text-align:center;
 }
 .login-link,.signup-link{
-    padding:0.6rem 2.15rem;
+    padding:0.6rem 2.32rem;
     text-decoration:none;
     display:inline-block;
     font-size:1.2rem;
@@ -350,7 +345,7 @@
 }
 
 .insignupmode{
-    padding:0.6rem 2.5rem;
+    padding:0.6rem 2.6rem;
 }
 
 .click-for-help{
