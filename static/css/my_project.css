@@ -79,9 +79,23 @@
 }
 /*--------------------------------------------------FOR NAVBAR---------------------------------------------*/
 
+.global-wrapper{
+    height:500px;
+}
+
+@media screen and (min-width:800px){
+    .global-wrapper{
+        height:85vh;
+    }
+}
 /*---------------------------------------------------FOR NOTES APP-----------------------------------------*/
 
 /*home-page*/
+
+.semester-wrapper{
+    height:100%;
+    overflow-y:scroll;
+}
 
 .semester-grid{
     display:grid;
@@ -89,6 +103,7 @@
     grid-row-gap:1rem;
     grid-column-gap:0.5rem;
     margin-top:1.5rem;
+    opacity:0.8;
 }
 
 .semester-grid-item{
@@ -225,6 +240,7 @@
     cursor: pointer;
     border-radius:0.3rem;
     margin-bottom:0.5rem;
+    padding:0.2rem;
 }
 
 @media screen and (min-width:800px){
@@ -285,12 +301,12 @@
 
 .login-form-wrapper,.signup-form-wrapper{
     display:flex;
-    position:absolute;
     height:100%;
     width:100%;
     justify-content:center;
     align-items:center;
     flex-direction:column;
+    overflow-y:scroll;
 }
 
 .login-form,.signup-form{
@@ -305,7 +321,12 @@
     width:95%;
     height:65%;
     grid-column-gap:0.4rem;
-    padding:0;
+    padding:0.2rem;
+}
+
+.signup-form input[type='text'],[type='email'],[type='password']{
+    max-width:95%;
+    padding:0 0.3rem;
 }
 
 .login-form-submit,.signup-form-submit{
@@ -361,8 +382,9 @@
 }
 
 .insignupmode{
-    padding:0.6rem 4.57rem;
+    padding:0.6rem 3.2rem;
 }
+
 
 .click-for-help{
     border:none;
@@ -375,6 +397,21 @@
 .help-text{
     display:none;
 }
+
+.signup-error-msgs,.login-error-msgs{
+    list-style-type:none;
+    padding:0;
+    display:flex;
+    text-align:center;
+    justify-content:center;
+}
+
+.signup-error-msgs li,.login-error-msgs li{
+    background-color:#ff6666;
+    color:black;
+    padding:0 0.7rem;
+}
+
 
 @media screen and (min-width:800px){
     .signup-form{
@@ -392,3 +429,42 @@
 }
 
 /****AUTH MODE STYLE****/
+
+
+/***************FOOTER**************/
+
+.footer{
+    background-color:var(--dark-green-color);
+    text-align:center;
+    padding:1.5rem;
+    color:var(--white-color);
+    z-index:400;
+}
+.footer__link{
+    text-decoration:none;
+    color:inherit;
+    font-size:1.5rem;
+    padding:0.5rem;
+    margin-top:0.2rem;
+    display:inline-block;
+}
+.social-list{
+    padding-left:0;
+    list-style-type:none;
+    display:flex;
+    justify-content:center;
+}
+
+.social-list__items{
+    padding:0 1.5rem;
+    font-size:1.3rem;
+}
+
+.social-list__link{
+    color:var(--white-color);
+}
+.social-list__link:hover{
+    opacity:0.7;
+}
+
+/***************FOOTER**************/

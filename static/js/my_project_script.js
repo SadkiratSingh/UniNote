@@ -178,5 +178,13 @@ function displayHelp(e){
 }
 //auth-modifications//
 
+errormsgs=document.querySelector('.signup-error-msgs');
+errormsgs.onclick=vanishMsgs;
 
+function vanishMsgs(){
+    erroritems=this.children;
+    for(var i=0;i<erroritems.length;i++){
+        erroritems[i].style.display='none';
+    }
+}
 
