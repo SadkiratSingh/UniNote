@@ -178,11 +178,25 @@ function displayHelp(e){
 }
 //auth-modifications//
 
-errormsgs=document.querySelector('.signup-error-msgs');
-errormsgs.onclick=vanishMsgs;
+errormsgssignup=document.querySelector('.signup-error-msgs');
+errormsgslogin=document.querySelector('.login-error-msgs');
+if(errormsgssignup){
+errormsgssignup.onclick=vanishSignupMsgs;
+}
 
-function vanishMsgs(){
-    erroritems=this.children;
+if(errormsgslogin){
+    errormsgslogin.onclick=vanishLoginMsgs;
+}
+
+function vanishSignupMsgs(){
+    var erroritems=this.children;
+    for(var i=0;i<erroritems.length;i++){
+        erroritems[i].style.display='none';
+    }
+}
+
+function vanishLoginMsgs(){
+    var erroritems=this.children;
     for(var i=0;i<erroritems.length;i++){
         erroritems[i].style.display='none';
     }
