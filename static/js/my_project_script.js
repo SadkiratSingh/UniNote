@@ -49,6 +49,9 @@ function checkResponse(){
             subjectsList=response['courses'];
             createFormContent();
         }
+        else if(response.hasOwnProperty('message')){
+            alert(response['message']);
+        }
     }
 }
 
@@ -73,7 +76,6 @@ function getNotes(e){
     var term=document.getElementById('term').value;
     courseForm.style.display='none';
     e.target.style.display='none';
-    chapterGridWrap.style.display='block';
     var http;
     http=new XMLHttpRequest();
     http.onreadystatechange=displayChapters;
@@ -83,25 +85,31 @@ function getNotes(e){
 
 function displayChapters(){
     if(this.readyState==4 && this.status==200){
-        var filesData=JSON.parse(this.responseText);
-        var dataList=filesData['data'];
-        var notesstr='';
-        var img_url;
-        var i=0;
-        while(i<dataList.length){
-            img_url=dataList[i]['img_url'];
-            chapter_name=dataList[i]['ch_name'];
-            notesstr+="<div class='chapter-grid-item'>";
-            notesstr+=`<img src=${pdfsrc} class='zip-image' alt='zip'>`;
-            notesstr+=`<p class='chapter-info'>${chapter_name}</p>`;
-            notesstr+=`<button class='zip-download' onclick='downloadZip(this,${chapter_name}.id)' >Download</button>`;
-            notesstr+="</div>";
-            notesstr+=`<img src=${img_url} class='chapter-image' id=${chapter_name} alt='ch-image'>`;
-            i=i+1;
+        var response=JSON.parse(this.responseText);
+        if(response.hasOwnProperty('delay_msg')){
+            alert(response['delay_msg']);
         }
-        chapterGrid.innerHTML=notesstr;
-        alterClassName()
-        runfordisplay()
+        else{
+            chapterGridWrap.style.display='block';
+            var dataList=response['data'];
+            var notesstr='';
+            var img_url;
+            var i=0;
+            while(i<dataList.length){
+                img_url=dataList[i]['img_url'];
+                chapter_name=dataList[i]['ch_name'];
+                notesstr+="<div class='chapter-grid-item'>";
+                notesstr+=`<img src=${pdfsrc} class='zip-image' alt='zip'>`;
+                notesstr+=`<p class='chapter-info'>${chapter_name}</p>`;
+                notesstr+=`<button class='zip-download ${chapter_name}' onclick='downloadZip(this)'>Download</button>`;
+                notesstr+="</div>";
+                notesstr+=`<img src=${img_url} class='chapter-image' id=${chapter_name} alt='ch-image'>`;
+                i=i+1;
+            }
+            chapterGrid.innerHTML=notesstr;
+            alterClassName()
+            runfordisplay()
+        }
     }
 }
 
@@ -140,7 +148,8 @@ function revertpdfdisplay(){
     })
 }
 
-function downloadZip(target,chname){
+function downloadZip(target){
+    var chname=target.classList[1];
     window.location.href=`downloadzip/${chname}`;
 }
 

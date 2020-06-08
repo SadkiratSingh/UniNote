@@ -46,6 +46,8 @@ class ReturnSemesterCourses(View):
         required_sem=self.kwargs['semester']
         req_sem_obj=Semester.objects.get(semester=required_sem)
         req_sem_courses=list(req_sem_obj.course_set.all())
+        if(len(req_sem_courses)==0):
+            return JsonResponse({'message':'courses will be uploaded soon!'})
         courses=[]
         for i in range(len(req_sem_courses)):
              courses.append((req_sem_courses[i].cource_code,req_sem_courses[i].course))
@@ -57,10 +59,12 @@ class ReturnChapters(View):
         course_id=request.GET.get('course')
         term=request.GET.get('term')
         all_related_chapters=list(Chapter.objects.filter(term=term,rel_course__cource_code=course_id))
+        if(len(all_related_chapters)==0):
+            return JsonResponse({'delay_msg':'Chapters will be uploaded soon!'})
         data_list=[]
         for obj in all_related_chapters:
             chapters_data={}
-            chapters_data['ch_name']=obj.name
+            chapters_data['ch_name']=re.sub(' ','-',obj.name)
             #get url for pdfimage#
             chapters_data['img_url']=obj.image.url
             #get url for pdfimage#
@@ -76,7 +80,10 @@ class DownloadZip(LoginCheck,View):
     def get(self,request,*args,**kwargs):
         temp=io.BytesIO()
         chapter_name=kwargs['name']
+        chapter_name=re.sub('-',' ',chapter_name)
         file_objects=PdfFiles.objects.filter(rel_chapter__name=chapter_name)
+        if (len(file_objects)==0):
+            return HttpResponse('Wait For Files To be Uploaded To Server!')
         archive=zipfile.ZipFile(temp,'w')
         for f in file_objects:
             abs_path=f.files.path

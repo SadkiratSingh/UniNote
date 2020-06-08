@@ -20,7 +20,7 @@
                  class="fas fa-home"></i></a></li>
             <li class='nav-item'><a class='nav-link' href='{% url "notes-home" %}'>Notes<a></li>
             {% if user.is_authenticated %}
-            <li class='nav-item'><a class='nav-link' href='#'>Logout</a></li>
+            <li class='nav-item'><a class='nav-link' href='{% url "useraccount-logout" %}'>Logout</a></li>
             <li class='nav-item'><a class='nav-link' href='#'>Rate This App</a></li>
             {% else %}
             <li class='nav-item'><a class='nav-link' href='{% url "useraccount-login" %}'>Login</a></li>

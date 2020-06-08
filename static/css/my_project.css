@@ -294,10 +294,18 @@
 }
 
 .login-form,.signup-form{
-    border:1px solid black;
     padding:2rem;
     box-shadow:var(--bs);
     border:0.5px solid var(--white-color);
+}
+
+.signup-form{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    width:95%;
+    height:65%;
+    grid-column-gap:0.4rem;
+    padding:0;
 }
 
 .login-form-submit,.signup-form-submit{
@@ -310,7 +318,15 @@
     text-align:center;
     border:none;
     box-shadow:var(--bs);
-    padding:0.3rem 1.5rem;
+    padding:0.3rem 2rem;
+}
+
+.signup-form-submit{
+    margin-top:0;
+}
+
+.form-grid-item-button{
+    grid-column:1/span 2;
 }
 
 .login-form-field,.signup-form-field{
@@ -345,12 +361,11 @@
 }
 
 .insignupmode{
-    padding:0.6rem 2.6rem;
+    padding:0.6rem 4.57rem;
 }
 
 .click-for-help{
     border:none;
-    border-radius:50%;
     background-color:var(--green-text-color);
     cursor: pointer;
     padding:0rem 0.25rem;
@@ -359,6 +374,21 @@
 
 .help-text{
     display:none;
+}
+
+@media screen and (min-width:800px){
+    .signup-form{
+        display:block;
+        width:auto;
+        height:auto;
+        padding:2rem;
+    }
+    .signup-form-submit{
+        margin-top:1rem;
+    }
+    .insignupmode{
+        padding:0.6rem 2.22rem;
+    }
 }
 
 /****AUTH MODE STYLE****/

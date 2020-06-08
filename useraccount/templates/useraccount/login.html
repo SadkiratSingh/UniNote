@@ -2,6 +2,13 @@
 
 {% block content %}
 <div class='login-form-wrapper'>
+    {% if messages %}
+    <ul class='login-error-msgs'>
+        {% for message in messages %}
+            <li>{{message}}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <div class='auth-links'>
         <a class='login-link' href='{% url "useraccount-login" %}'>Login</a><a class='signup-link' href='{% url "useraccount-signup" %}'>Signup</a>
     </div>
