@@ -11,7 +11,7 @@ from django.http import HttpResponseRedirect
 class UserLoginView(LoginView):
     template_name='useraccount/login.html'
     redirect_authenticated_user=True
-
+    
     def form_invalid(self,form):
         field_errors_dict=form.errors
         other_errors=form.non_field_errors()
@@ -23,7 +23,7 @@ class UserLoginView(LoginView):
 
 class UserSignUpView(CreateView):
     form_class=RegistrationForm
-    success_url=reverse_lazy('login')
+    success_url=reverse_lazy('useraccount-login')
     template_name='useraccount/registration.html'
 
     def form_invalid(self,form):

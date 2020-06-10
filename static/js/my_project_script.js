@@ -9,7 +9,8 @@ const navList=document.querySelector('.nav-list');
 const courseForm=document.querySelector('.getnotesform')
 const submitCourseFormData=document.querySelector('.course-submit');
 const chapterGridWrap=document.querySelector('.chapter-grid-wrapper');
-const chapterGrid=document.querySelector('.chapter-grid')
+const chapterGrid=document.querySelector('.chapter-grid');
+const globalWrap=document.querySelector('.global-wrapper');
 var subjectsList=undefined;
 var pdfGridItems=undefined;
 //global variables//
@@ -178,6 +179,7 @@ function displayHelp(e){
 }
 //auth-modifications//
 
+//handling error msgs//
 errormsgssignup=document.querySelector('.signup-error-msgs');
 errormsgslogin=document.querySelector('.login-error-msgs');
 if(errormsgssignup){
@@ -189,16 +191,34 @@ if(errormsgslogin){
 }
 
 function vanishSignupMsgs(){
-    var erroritems=this.children;
-    for(var i=0;i<erroritems.length;i++){
-        erroritems[i].style.display='none';
-    }
+    this.style.display='none';
 }
 
 function vanishLoginMsgs(){
-    var erroritems=this.children;
-    for(var i=0;i<erroritems.length;i++){
-        erroritems[i].style.display='none';
+    this.style.display='none';
+}
+//handling error msgs//
+
+//handling intro page//
+var win_url=window.location.href;
+win_url_list=win_url.split('/');
+if(win_url_list[3]==''){
+    globalWrap.style.backgroundColor='#3AAFA9';
+    var text=document.querySelector('.intro-text').innerText;
+    document.querySelector('.intro-text').innerText='';
+    var pos=0;
+    var interval=90;    
+    function type(){
+        if (pos<text.length){
+            document.querySelector('.intro-text').innerText+=text.charAt(pos);
+            pos++;
+        }
+        else{
+            document.querySelector('.intro-text').innerText='';
+            pos=0;
+        }
     }
+    setInterval(type,100);
 }
 
+//handling intro page//

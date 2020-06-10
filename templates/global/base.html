@@ -7,31 +7,37 @@
     <link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css' rel='stylesheet'>
     <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.css' rel='stylesheet'>
     <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Balsamiq+Sans:ital@1&family=Francois+One&display=swap" rel="stylesheet">
     <link href='{% static "css/my_project.css" %}' rel='stylesheet' type='text/css'>
     <title>Notes App</title>
 </head>
 <body>
+    <!--NAVBAR-->
     <div class='nav-wrapper'>
         <div class='nav-sm'>
             <button class='nav-icon'><i class="fas fa-bars" style="color:#FEFFFF"></i></button>
         </div>
         <ul class='nav-list'>
-            <li class='nav-item'><a class='nav-link' href='#'><i
+            <li class='nav-item'><a class='nav-link' href='{% url "intro-page" %}'><i
                  class="fas fa-home"></i></a></li>
             <li class='nav-item'><a class='nav-link' href='{% url "notes-home" %}'>Notes<a></li>
             {% if user.is_authenticated %}
             <li class='nav-item'><a class='nav-link' href='{% url "useraccount-logout" %}'>Logout</a></li>
-            <li class='nav-item'><a class='nav-link' href='#'>Rate This App</a></li>
+            <li class='nav-item'><a class='nav-link' onclick='alert("This functionality will be added soon!!")'>Rate This App</a></li>
             {% else %}
             <li class='nav-item'><a class='nav-link' href='{% url "useraccount-login" %}'>Login</a></li>
             <li class='nav-item'><a class='nav-link' href='{% url "useraccount-signup" %}'>Signup</a></li>
             {% endif %}
         </ul>
     </div>
+    <!--NAVBAR-->
+
     <div class='global-wrapper'>
         {% block content %}
         {% endblock content %}
     </div>
+
+    <!--FOOTER-->
     <div class='footer'>
         <span style="color:white;"><i class="far fa-paper-plane"></i>You can mail us at: </span><a href='mailto:sadkiratsingh@yahoo.com' class='footer__link'>sadkiratsingh@yahoo.com</a>
         <ul class='social-list'>
@@ -43,6 +49,8 @@
                 <a class='social-list__link' href='#'><i class="fab fa-twitter"></i></a></li>
         </ul>
     </div>
+    <!--FOOTER-->
+    
     <script>
         const pdfsrc="{% static 'images/zipicon3.png' %}";
     </script>
