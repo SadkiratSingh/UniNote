@@ -2,4 +2,4 @@
 *.lock
 *.pyc
 /Pipfile
-migrations/
+
